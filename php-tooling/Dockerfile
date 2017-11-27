@@ -18,4 +18,5 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && composer require drush/drush \
     && composer require drupal/coder \
     && /usr/local/bin/phpcs --config-set installed_paths /vendor/drupal/coder/coder_sniffer \
+    && composer require phpmd/phpmd \
     && apk del .build-deps \
