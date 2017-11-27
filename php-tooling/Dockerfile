@@ -21,4 +21,5 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && composer require phpmd/phpmd \
     && composer require phing/phing \
     && composer require phpunit/phpunit \
+    && composer require phpunit/php-code-coverage \
     && apk del .build-deps \
