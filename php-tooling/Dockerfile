@@ -8,4 +8,11 @@ RUN apk add --no-cache build-base autoconf --virtual .build-deps \
     && php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \
-    && mv composer.phar /usr/local/bin/composer
+    && mv composer.phar /usr/local/bin/composer \
+    && curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar \
+    && mv phpcs.phar /usr/local/bin/phpcs \
+    && chmod +x /usr/local/bin/phpcs \
+    && curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar \
+    && mv phpcbf.phar /usr/local/bin/phpcbf \
+    && chmod +x /usr/local/bin/phpcbf \
+    && composer require drush/drush \
