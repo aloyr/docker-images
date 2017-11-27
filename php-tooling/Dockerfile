@@ -23,4 +23,5 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && composer require phpunit/phpunit \
     && composer require phpunit/php-code-coverage \
     && composer require sebastian/phpcpd \
+    && composer require phpdocumentor/phpdocumentor \
     && apk del .build-deps \
