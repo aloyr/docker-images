@@ -9,15 +9,9 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer \
-    && curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar \
-    && mv phpcs.phar /usr/local/bin/phpcs \
-    && chmod +x /usr/local/bin/phpcs \
-    && curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar \
-    && mv phpcbf.phar /usr/local/bin/phpcbf \
-    && chmod +x /usr/local/bin/phpcbf \
     && composer require drush/drush \
     && composer require drupal/coder \
-    && /usr/local/bin/phpcs --config-set installed_paths /vendor/drupal/coder/coder_sniffer \
+    && /vendor/bin/phpcs --config-set installed_paths /vendor/drupal/coder/coder_sniffer \
     && composer require phpmd/phpmd \
     && composer require phing/phing \
     && composer require phpunit/phpunit \
