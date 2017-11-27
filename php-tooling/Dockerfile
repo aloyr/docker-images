@@ -1,4 +1,5 @@
 FROM php:7.1-alpine
+ENV PATH="/vendor/bin:${PATH}"
 RUN apk add --no-cache build-base autoconf --virtual .build-deps \
     && pecl install redis \
     && pecl install xdebug \
