@@ -17,5 +17,5 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && chmod +x /usr/local/bin/phpcbf \
     && composer require drush/drush \
     && composer require drupal/coder \
-    && /usr/local/bin/phpcs --config-set installed_paths /vendor/drupal/coder/coder_sniffer
+    && /usr/local/bin/phpcs --config-set installed_paths /vendor/drupal/coder/coder_sniffer \
     && apk del .build-deps \
