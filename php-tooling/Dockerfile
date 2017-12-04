@@ -12,9 +12,11 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && mkdir -p /tools/drupal \
     && cd /tools/drupal \
     && composer require drush/drush \
-    && composer require drupal/drupal \
     && composer require drupal/coder \
     && /tools/drupal/vendor/bin/phpcs --config-set installed_paths /vendor/drupal/coder/coder_sniffer \
+    && mkdir -p /tools/drupalconsole \
+    && cd /tools/drupalconsole \
+    && composer require drupal/console \
     && mkdir -p /tools/php \
     && cd /tools/php \
     && composer require phpmd/phpmd \
