@@ -31,5 +31,5 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && mkdir -p /tools/terminus \
     && cd /tools/terminus \
     && composer require pantheon-systems/terminus \
-    && cp -fL /tools/*/vendor/bin/* /use/local/bin \
+    && cp -fL /tools/*/vendor/bin/* /usr/local/bin \
     && apk del .build-deps
