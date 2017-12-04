@@ -9,13 +9,26 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer \
+    && mkdir -p /tools/drupal \
+    && cd /tools/drupal \
     && composer require drush/drush \
+    && composer require drupal/drupal \
     && composer require drupal/coder \
-    && /vendor/bin/phpcs --config-set installed_paths /vendor/drupal/coder/coder_sniffer \
+    && /tools/drupal/vendor/bin/phpcs --config-set installed_paths /vendor/drupal/coder/coder_sniffer \
+    && mkdir -p /tools/php \
+    && cd /tools/php \
     && composer require phpmd/phpmd \
     && composer require phing/phing \
     && composer require phpunit/phpunit \
     && composer require phpunit/php-code-coverage \
     && composer require sebastian/phpcpd \
+    && mkdir -p /tools/phpdocumentor \
+    && cd /tools/phpdocumentor \
+    && composer require phpdocumentor/phpdocumentor \
+    && mkdir -p /tools/codeception \
+    && cd /tools/codeception \
     && composer require codeception/codeception \
+    && mkdir -p /tools/terminus \
+    && cd /tools/terminus \
+    && composer require pantheon-systems/terminus \
     && apk del .build-deps
