@@ -13,6 +13,7 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && cd /tools/drupal \
     && composer require drush/drush \
     && composer require drupal/coder \
+    && mkdir /tools/drupal/vendor/drupal/coder/coder_sniffer/DrupalAll \
     && /tools/drupal/vendor/bin/phpcs --config-set installed_paths /tools/drupal/vendor/drupal/coder/coder_sniffer \
     && mkdir -p /tools/drupalconsole \
     && cd /tools/drupalconsole \
@@ -39,4 +40,25 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
            ln -s /tools/$tool/vendor/bin/$binary /usr/local/bin; \
          done; \
       done \
+    && touch /root/.bash_profile \
+    && curl -sS https://platform.sh/cli/installer | php \
+    && cp /root/.platformsh/bin/platform /usr/local/bin \
     && apk del .build-deps
+COPY DrupalAll/ruleset.xml /tools/drupal/vendor/drupal/coder/coder_sniffer/DrupalAll/ruleset.xml
+RUN logfile="/version.txt" \
+    && > $logfile \
+    && php --version | sed -ne 's/^\(PHP [^ ]\+\) .*/\1/gp' >> $logfile \
+    && pecl list | tail -n +4 >> $logfile \
+    && composer --version >> $logfile \
+    && /tools/drupal/vendor/bin/drush --version >> $logfile \
+    && /tools/drupal/vendor/bin/phpcs --version >> $logfile \
+    && /tools/drupal/vendor/bin/phpcs -i >> $logfile \
+    && composer -d=/tools/drupalconsole show | grep drupal | head -n 1 >> $logfile \
+    && /tools/php/vendor/bin/phpmd --version >> $logfile \
+    && /tools/php/vendor/bin/phing -v >> $logfile \
+    && /tools/php/vendor/bin/phpunit --version >> $logfile \
+    && /tools/php/vendor/bin/phpcpd --version >> $logfile \
+    && /tools/phpdocumentor/vendor/bin/phpdoc --version >> $logfile \
+    && /tools/codeception/vendor/bin/codecept --version >> $logfile \
+    && terminus --version >> $logfile \
+    && platform --version >> $logfile
