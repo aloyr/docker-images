@@ -33,7 +33,7 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && composer require codeception/codeception \
     && mkdir -p /tools/terminus \
     && cd /tools/terminus \
-    && composer require pantheon-systems/terminus \
+    && composer require pantheon-systems/terminus 1.8.0 \
     && ls /tools/ | while read tool; do \
          ls /tools/$tool/vendor/bin/ | while read binary; do \
            rm -f /usr/local/bin/$binary; \
