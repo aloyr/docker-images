@@ -1,5 +1,7 @@
 FROM php:7.1-alpine
-ENV PATH="/vendor/bin:${PATH}"
+ENV PATH "/vendor/bin:${PATH}"
+ENV TERMINUS_PLUGINS_DIR "/tools/terminus/plugins"
+ENV TERMINUS_CACHE_DIR "/tools/terminus/cache"
 RUN apk add --no-cache build-base autoconf --virtual .build-deps \
     && apk add --no-cache git \
     && pecl install redis \
