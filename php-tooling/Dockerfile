@@ -1,6 +1,7 @@
 FROM php:7.1-alpine
 ENV PATH="/vendor/bin:${PATH}"
-RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
+RUN apk add --no-cache build-base autoconf --virtual .build-deps \
+    && apk add --no-cache git \
     && pecl install redis \
     && pecl install xdebug \
     && docker-php-ext-enable redis xdebug \
@@ -34,6 +35,8 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && mkdir -p /tools/terminus \
     && cd /tools/terminus \
     && composer require pantheon-systems/terminus 1.8.0 \
+    && mkdir -p /tools/terminus/plugins \
+    && composer create project -n -d /tools/terminus/plugins pantheon-systems/terminus-build-tools-plugin:~1 \
     && ls /tools/ | while read tool; do \
          ls /tools/$tool/vendor/bin/ | while read binary; do \
            rm -f /usr/local/bin/$binary; \
