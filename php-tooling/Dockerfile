@@ -38,7 +38,7 @@ RUN apk add --no-cache build-base autoconf --virtual .build-deps \
     && cd /tools/terminus \
     && composer require pantheon-systems/terminus 1.8.0 \
     && mkdir -p /tools/terminus/plugins \
-    && composer create project -n -d /tools/terminus/plugins pantheon-systems/terminus-build-tools-plugin:~1 \
+    && composer-create project -n -d /tools/terminus/plugins pantheon-systems/terminus-build-tools-plugin:~1 \
     && ls /tools/ | while read tool; do \
          ls /tools/$tool/vendor/bin/ | while read binary; do \
            rm -f /usr/local/bin/$binary; \
