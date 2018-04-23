@@ -45,6 +45,7 @@ RUN apk add --no-cache build-base autoconf git --virtual .build-deps \
     && cp /root/.platformsh/bin/platform /usr/local/bin \
     && apk del .build-deps
 COPY DrupalAll/ruleset.xml /tools/drupal/vendor/drupal/coder/coder_sniffer/DrupalAll/ruleset.xml
+COPY ./scripts/build-tools-ci.sh /scripts/
 RUN logfile="/version.txt" \
     && > $logfile \
     && php --version | sed -ne 's/^\(PHP [^ ]\+\) .*/\1/gp' >> $logfile \
@@ -53,7 +54,7 @@ RUN logfile="/version.txt" \
     && /tools/drupal/vendor/bin/drush --version >> $logfile \
     && /tools/drupal/vendor/bin/phpcs --version >> $logfile \
     && /tools/drupal/vendor/bin/phpcs -i >> $logfile \
-    && composer -d=/tools/drupalconsole show | grep drupal | head -n 1 >> $logfile \
+    && composer -d/tools/drupalconsole show | grep drupal | head -n 1 >> $logfile \
     && /tools/php/vendor/bin/phpmd --version >> $logfile \
     && /tools/php/vendor/bin/phing -v >> $logfile \
     && /tools/php/vendor/bin/phpunit --version >> $logfile \
@@ -61,4 +62,5 @@ RUN logfile="/version.txt" \
     && /tools/phpdocumentor/vendor/bin/phpdoc --version >> $logfile \
     && /tools/codeception/vendor/bin/codecept --version >> $logfile \
     && terminus --version >> $logfile \
-    && platform --version >> $logfile
+    && platform --version >> $logfile \
+    && chmod +x /scripts/build-tools-ci.sh
